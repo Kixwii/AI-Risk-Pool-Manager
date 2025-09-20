@@ -1,4 +1,3 @@
-
 import React from 'react';
 import type { Claim, Member } from '../types';
 import { ClaimStatus } from '../types';
@@ -23,19 +22,19 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims, members, currentUserId,
 
     return (
         <section>
-            <h2 className="text-xl font-bold text-slate-800 mb-4">Claims</h2>
+            <h2 className="text-2xl font-bold text-trip-dark mb-4">Claims</h2>
 
             {isLoading && pendingClaims.length === 0 && (
                  <div className="bg-white p-4 rounded-lg shadow-sm animate-pulse">
-                    <div className="h-4 bg-slate-200 rounded w-3/4 mb-2"></div>
-                    <div className="h-3 bg-slate-200 rounded w-1/2"></div>
+                    <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                    <div className="h-3 bg-gray-200 rounded w-1/2"></div>
                 </div>
             )}
             
             {pendingClaims.length > 0 && (
-                <div className="mb-6">
-                    <h3 className="text-md font-semibold text-slate-600 mb-2">Pending Action</h3>
-                    <div className="space-y-3">
+                <div className="mb-8">
+                    <h3 className="text-lg font-bold text-gray-700 mb-3">Pending Action</h3>
+                    <div className="space-y-4">
                         {pendingClaims.map(claim => (
                             <ClaimItem 
                                 key={claim.id}
@@ -52,8 +51,8 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims, members, currentUserId,
             
             {historicalClaims.length > 0 && (
                  <div className="mb-6">
-                    <h3 className="text-md font-semibold text-slate-600 mb-2">History</h3>
-                    <div className="space-y-3">
+                    <h3 className="text-lg font-bold text-gray-700 mb-3">History</h3>
+                    <div className="space-y-4">
                          {historicalClaims.map(claim => (
                             <ClaimItem 
                                 key={claim.id}
@@ -69,8 +68,8 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims, members, currentUserId,
             )}
 
             {!isLoading && claims.length === 0 && (
-                <div className="text-center py-8 px-4 bg-white rounded-lg shadow-sm">
-                    <p className="text-slate-500">No claims have been filed yet.</p>
+                <div className="text-center py-8 px-4 bg-white rounded-lg shadow-sm border border-gray-200">
+                    <p className="text-gray-500">No claims have been filed yet.</p>
                 </div>
             )}
         </section>

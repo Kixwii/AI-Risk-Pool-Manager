@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Button from './common/Button';
 
@@ -22,7 +21,7 @@ const NewClaimForm: React.FC<NewClaimFormProps> = ({ memberId, onSubmit }) => {
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-                <label htmlFor="amount" className="block text-sm font-medium text-slate-700">
+                <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
                     Claim Amount (KES)
                 </label>
                 <div className="mt-1">
@@ -31,14 +30,14 @@ const NewClaimForm: React.FC<NewClaimFormProps> = ({ memberId, onSubmit }) => {
                         id="amount"
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
-                        className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-1 focus:ring-trip-green focus:border-trip-green"
                         placeholder="e.g., 2500"
                         required
                     />
                 </div>
             </div>
             <div>
-                <label htmlFor="description" className="block text-sm font-medium text-slate-700">
+                <label htmlFor="description" className="block text-sm font-medium text-gray-700">
                     Brief Description
                 </label>
                 <div className="mt-1">
@@ -47,7 +46,7 @@ const NewClaimForm: React.FC<NewClaimFormProps> = ({ memberId, onSubmit }) => {
                         rows={3}
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-1 focus:ring-trip-green focus:border-trip-green"
                         placeholder="e.g., Replaced a flat tire"
                         required
                     />

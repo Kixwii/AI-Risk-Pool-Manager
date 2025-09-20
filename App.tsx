@@ -133,11 +133,11 @@ const App: React.FC = () => {
     }, 0);
 
     return (
-        <div className="min-h-screen bg-slate-50 font-sans text-slate-800">
+        <div className="min-h-screen bg-gray-100 font-sans text-gray-800">
             <Header groupName={group.name} />
             <main className="p-4 sm:p-6 max-w-4xl mx-auto">
                 {error && (
-                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative mb-4" role="alert">
                         <strong className="font-bold">Error: </strong>
                         <span className="block sm:inline">{error}</span>
                     </div>
@@ -176,6 +176,7 @@ const App: React.FC = () => {
                 totalPool={totalPool}
                 onVote={handleVote}
                 onFileClaim={handleFileClaim}
+                onAddContribution={handleAddContribution}
             />
         </div>
     );

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import type { Claim } from '../types';
 import { ClaimStatus } from '../types';
@@ -19,11 +18,11 @@ interface ClaimItemProps {
 
 const StatusBadge: React.FC<{ status: ClaimStatus }> = ({ status }) => {
     const statusStyles: { [key in ClaimStatus]: { bg: string, text: string } } = {
-        [ClaimStatus.PENDING_AI]: { bg: 'bg-purple-100', text: 'text-purple-800' },
-        [ClaimStatus.PENDING_VOTE]: { bg: 'bg-blue-100', text: 'text-blue-800' },
+        [ClaimStatus.PENDING_AI]: { bg: 'bg-blue-100', text: 'text-blue-800' },
+        [ClaimStatus.PENDING_VOTE]: { bg: 'bg-amber-100', text: 'text-amber-800' },
         [ClaimStatus.APPROVED]: { bg: 'bg-green-100', text: 'text-green-800' },
         [ClaimStatus.DENIED]: { bg: 'bg-red-100', text: 'text-red-800' },
-        [ClaimStatus.PAID]: { bg: 'bg-slate-100', text: 'text-slate-800' },
+        [ClaimStatus.PAID]: { bg: 'bg-lime-100', text: 'text-green-800' },
     };
 
     const styles = statusStyles[status] || statusStyles[ClaimStatus.PAID];
@@ -48,62 +47,63 @@ const ClaimItem: React.FC<ClaimItemProps> = ({ claim, memberName, currentUserId,
         <Card>
             <div className="flex justify-between items-start">
                 <div>
-                    <p className="font-bold text-slate-800">{memberName}</p>
-                    <p className="text-sm text-slate-500">
+                    <p className="font-bold text-trip-dark">{memberName}</p>
+                    <p className="text-sm text-gray-500">
                         {new Date(claim.date).toLocaleDateString()}
                     </p>
                 </div>
                 <StatusBadge status={claim.status} />
             </div>
-            <p className="text-lg font-semibold my-2 text-slate-900">
+            <p className="text-2xl font-bold my-2 text-trip-dark">
                 KES {claim.amount.toLocaleString()}
             </p>
-            <p className="text-slate-600 text-sm mb-3">{claim.description}</p>
+            <p className="text-gray-600 text-base mb-4">{claim.description}</p>
             
             {claim.aiAssessment && (
-                 <div className="text-sm bg-slate-50 p-3 rounded-lg border border-slate-200 mb-3">
-                    <p className="font-semibold text-slate-700 flex items-center">
-                        <SparklesIcon className="h-4 w-4 mr-1.5 text-purple-500"/>
+                 <div className="text-sm bg-gray-50 p-3 rounded-lg border border-gray-200 mb-4">
+                    <p className="font-semibold text-gray-700 flex items-center">
+                        <SparklesIcon className="h-5 w-5 mr-2 text-blue-600"/>
                         AI Assessment: 
                         <span className={`ml-2 font-bold ${
                             claim.aiAssessment.recommendation === 'Approve' ? 'text-green-600' :
-                            claim.aiAssessment.recommendation === 'Deny' ? 'text-red-600' : 'text-yellow-600'
+                            claim.aiAssessment.recommendation === 'Deny' ? 'text-red-600' : 'text-amber-600'
                         }`}>
                             {claim.aiAssessment.recommendation}
                         </span>
                     </p>
-                    <p className="text-slate-500 italic mt-1">"{claim.aiAssessment.justification}"</p>
+                    <p className="text-gray-500 italic mt-1">"{claim.aiAssessment.justification}"</p>
                 </div>
             )}
             
             {(claim.status === ClaimStatus.PENDING_VOTE || claim.votes.length > 0) && (
-                <div className="text-sm text-slate-600 flex items-center mb-3">
-                    <UserGroupIcon className="h-4 w-4 mr-1.5 text-slate-500" />
+                <div className="text-sm text-gray-600 flex items-center mb-3">
+                    <UserGroupIcon className="h-4 w-4 mr-1.5 text-gray-500" />
                     Community Vote: 
                     <span className="font-bold text-green-600 ml-2">{approvals}</span>&nbsp;Approve / 
                     <span className="font-bold text-red-600 ml-1">{denials}</span>&nbsp;Deny
                 </div>
             )}
 
-
-            {canVote && (
-                <div className="mt-4 pt-4 border-t border-slate-200">
-                    <p className="text-sm font-medium text-center text-slate-700 mb-2">Your vote is needed</p>
-                    <div className="flex gap-3">
-                        <Button onClick={() => onVote(claim.id, currentUserId, 'approve')} variant="secondary" size="sm" className="w-full">
-                            <ThumbUpIcon className="h-4 w-4 mr-2" /> Approve
-                        </Button>
-                        <Button onClick={() => onVote(claim.id, currentUserId, 'deny')} variant="danger" size="sm" className="w-full">
-                            <ThumbDownIcon className="h-4 w-4 mr-2" /> Deny
-                        </Button>
-                    </div>
+            {claim.status === ClaimStatus.PENDING_VOTE && (
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                    {canVote ? (
+                        <>
+                            <p className="text-sm font-medium text-center text-gray-700 mb-2">Your vote is needed</p>
+                            <div className="flex gap-6">
+                                <Button onClick={() => onVote(claim.id, currentUserId, 'approve')} variant="secondary" size="sm" className="w-full">
+                                    <ThumbUpIcon className="h-4 w-4 mr-2" /> Approve
+                                </Button>
+                                <Button onClick={() => onVote(claim.id, currentUserId, 'deny')} variant="danger" size="sm" className="w-full">
+                                    <ThumbDownIcon className="h-4 w-4 mr-2" /> Deny
+                                </Button>
+                            </div>
+                        </>
+                    ) : (
+                        <p className="text-xs text-center text-gray-500">
+                            {isClaimOwner ? "You cannot vote on your own claim." : "Thank you for voting."}
+                        </p>
+                    )}
                 </div>
-            )}
-
-            {claim.status === ClaimStatus.PENDING_VOTE && (isClaimOwner || userHasVoted) && (
-                 <p className="text-xs text-center text-slate-500 mt-3">
-                    {isClaimOwner ? "You cannot vote on your own claim." : "Thank you for voting."}
-                </p>
             )}
         </Card>
     );

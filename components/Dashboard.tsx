@@ -38,38 +38,38 @@ const HealthIndicator: React.FC<{ status: FundHealthStatus }> = ({ status }) => 
 
 const Dashboard: React.FC<DashboardProps> = ({ totalPool, fundHealth, isLoading, onAddContribution, onFileClaim, onRefresh, onOpenUSSD }) => {
     return (
-        <section className="mb-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section className="mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
-                    <h3 className="text-sm font-medium text-slate-500">Total Pool Value</h3>
-                    <p className="text-3xl font-bold text-slate-900 mt-1">
+                    <h3 className="text-base font-medium text-gray-500">Total Pool Value</h3>
+                    <p className="text-4xl font-bold text-trip-dark mt-1">
                         KES {totalPool.toLocaleString()}
                     </p>
                 </Card>
                 <Card>
                     <div className="flex justify-between items-start">
                         <div>
-                            <h3 className="text-sm font-medium text-slate-500">AI Fund Health</h3>
+                            <h3 className="text-sm font-medium text-gray-500">AI Fund Health</h3>
                             {isLoading ? (
-                                <div className="h-6 w-24 bg-slate-200 rounded-full animate-pulse mt-2"></div>
+                                <div className="h-6 w-24 bg-gray-200 rounded-full animate-pulse mt-2"></div>
                             ) : (
                                 <div className="mt-2">
                                     <HealthIndicator status={fundHealth.status} />
                                 </div>
                             )}
                         </div>
-                        <button onClick={onRefresh} disabled={isLoading} className="p-1 text-slate-400 hover:text-slate-600 disabled:opacity-50 disabled:cursor-wait">
+                        <button onClick={onRefresh} disabled={isLoading} className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-wait">
                             <RefreshIcon className={`h-5 w-5 ${isLoading ? 'animate-spin' : ''}`} />
                         </button>
                     </div>
                      {isLoading ? (
-                        <div className="mt-2 h-4 w-full bg-slate-200 rounded animate-pulse"></div>
+                        <div className="mt-2 h-4 w-full bg-gray-200 rounded animate-pulse"></div>
                      ) : (
-                        <p className="text-sm text-slate-600 mt-2">{fundHealth.analysis}</p>
+                        <p className="text-sm text-gray-600 mt-2">{fundHealth.analysis}</p>
                      )}
                 </Card>
             </div>
-            <div className="mt-4 grid grid-cols-2 gap-4">
+            <div className="mt-6 grid grid-cols-2 gap-4">
                 <Button onClick={onAddContribution} variant="secondary">
                     <PlusCircleIcon className="h-5 w-5 mr-2"/>
                     Add Contribution
@@ -78,8 +78,8 @@ const Dashboard: React.FC<DashboardProps> = ({ totalPool, fundHealth, isLoading,
                      <DocumentAddIcon className="h-5 w-5 mr-2"/>
                     File a Claim
                 </Button>
-                <div className="col-span-2">
-                    <Button onClick={onOpenUSSD} variant="secondary" className="w-full border-slate-400">
+                <div className="col-span-2 mt-2">
+                    <Button onClick={onOpenUSSD} variant="secondary" className="w-full">
                         <PhoneIcon className="h-5 w-5 mr-2"/>
                         Use USSD (Offline Sim)
                     </Button>
